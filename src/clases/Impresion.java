@@ -13,6 +13,11 @@ public class Impresion {
 	
 	
 	public Impresion() throws InterruptedException{
+	
+	sensor1.setTypeAndMode(3, 0X80);
+	sensor2.setTypeAndMode(3, 0X80);
+	sensor1.activate();
+	sensor2.activate();
 	  Button.VIEW.addButtonListener(new ButtonListener() {
 		
 		@Override
@@ -25,10 +30,13 @@ public class Impresion {
 		public void buttonPressed(Button b) {
 			if(contador==0){
 				white = sensor1.readValue();
+				LCD.showNumber(white);
 			}else if(contador==1){
 				black = sensor1.readValue();
+				LCD.showNumber(black);
 			}else if(contador==2){
 				gray = (white+black)/2;
+				LCD.showNumber(gray);
 			}else if(contador==3){
 				
 				
@@ -41,7 +49,9 @@ public class Impresion {
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
 						motorIzquierdo(error, robot);
+						
 					}
+					
 				});
 			    
 			    
@@ -50,10 +60,15 @@ public class Impresion {
 					
 					@Override
 					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
-						// TODO Auto-generated method stub
+						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 1.6f, 0.54f);
+						int error = aNewValue - gray;
+				        LCD.showNumber(error);
+						motorDerecho(error, robot);
 						
 					}
 				});
+			    
+			    
 				
 				
 			}//Fin el if 
@@ -78,32 +93,57 @@ public class Impresion {
 	
 	public void motorIzquierdo(int error, TimingNavigator robot){
 		if(error>3){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.rotate(-25);
-			pause(100);
-			robot.travel(1);
-		}else if(error>=1){
-			Motor.A.setPower(2);
-			Motor.C.setPower(2);
-			robot.rotate(-7);
-			pause(100);
-			robot.travel(2);
-		}else if(error>-1){
-			Motor.A.setPower(2);
-			Motor.C.setPower(2);
-			robot.travel(3);
-		}else if(error>=-3){
-			Motor.A.setPower(2);
-			Motor.C.setPower(2);
-			robot.rotate(7);
-			pause(100);
-			robot.travel(2);
-		}else{
-			robot.stop();
 			Motor.A.setPower(4);
 			Motor.C.setPower(4);
-			robot.travel(25);
+			robot.rotate(-15);
+			robot.travel(2);
+		}else if(error>=1){
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(-5);
+			robot.travel(2);
+		}else if(error>=-1){
+			Motor.A.setPower(3);
+			Motor.C.setPower(3);
+			robot.travel(3);
+		}else if(error>=-3){
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(10);
+			robot.travel(3);
+		}else{
+			robot.stop();
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(15);
+		}
+	}
+	
+	public void motorDerecho(int error, TimingNavigator robot){
+		if(error>3){
+			Motor.A.setPower(4);
+			Motor.C.setPower(4);
+			robot.rotate(15);
+			robot.travel(2);
+		}else if(error>=1){
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(5);
+			robot.travel(2);
+		}else if(error>=-1){
+			Motor.A.setPower(3);
+			Motor.C.setPower(3);
+			robot.travel(3);
+		}else if(error>=-3){
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(-10);
+			robot.travel(3);
+		}else{
+			robot.stop();
+			Motor.A.setPower(5);
+			Motor.C.setPower(5);
+			robot.rotate(-15);
 		}
 	}
 	
