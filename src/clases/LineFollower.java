@@ -1,7 +1,7 @@
 package clases;
 import josx.platform.rcx.*;
 import josx.robotics.TimingNavigator;
-public class Impresion {
+public class LineFollower {
 	
 	int white=0;
 	int black =0;
@@ -12,7 +12,7 @@ public class Impresion {
 	boolean sensor1Bandera = true, sensor2Bandera = true;
 	
 	
-	public Impresion() throws InterruptedException{
+	public LineFollower() throws InterruptedException{
 	
 	sensor1.setTypeAndMode(3, 0X80);
 	sensor2.setTypeAndMode(3, 0X80);
@@ -49,27 +49,9 @@ public class Impresion {
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
 				        sensor2Bandera = false;
-				        if(aNewValue<=black && sensor2.readValue()<=black){
-				        	
-				        	sensor2Bandera = false;
-				        	sensor1Bandera = false;
-				        	robot.stop();
-				        	Motor.A.setPower(7);
-				        	Motor.B.setPower(7);
-				        	Motor.A.backward();
-			        		Motor.B.forward();
-			        		robot.travel(5);
-				        	while(aNewValue>=white && sensor2.readValue()>=white){
-				        		LCD.showNumber(69);
-				        		robot.travel(15);
-					        	pause(1000);
-				        		Motor.A.backward();
-				        		Motor.B.forward();
-				        	}
-				        	pause(500);
-				        	sensor2Bandera = true;
-				        	sensor1Bandera = true;
-				        }else
+				        if(error<0 && (sensor2.readValue()-gray)<0){
+				        	cruzeIzquierdo(robot);
+				        }
 				        if(sensor1Bandera){
 				        	motorIzquierdo(error, robot);	
 				        }
@@ -89,7 +71,6 @@ public class Impresion {
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
 				        sensor1Bandera = false;
-				        
 				        if(sensor2Bandera){
 							motorDerecho(error, robot);
 
@@ -122,24 +103,15 @@ public class Impresion {
 	
 	
 	public void motorIzquierdo(int error, TimingNavigator robot){
-		if(error>3){
+		if(error>2){
 			Motor.A.setPower(4);
 			Motor.C.setPower(4);
 			robot.rotate(-15);
 			robot.travel(2);
-		}else if(error>1){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.rotate(-5);
-			robot.travel(2);
-		}else if(error>=-1){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.travel(3);
-		}else if(error>=-2){
-			Motor.A.setPower(5);
-			Motor.C.setPower(5);
-			robot.rotate(10);
+		}else if(error>-2){
+			Motor.A.setPower(4);
+			Motor.C.setPower(4);
+			robot.rotate(-2);
 			robot.travel(3);
 		}else{
 			robot.stop();
@@ -150,33 +122,38 @@ public class Impresion {
 		sensor2Bandera = true;
 	}
 	
+	public void cruzeIzquierdo(TimingNavigator robot){
+		sensor1Bandera = false;
+		Motor.A.setPower(7);
+    	Motor.B.setPower(7);
+    	robot.travel(5);
+    	robot.stop();
+    	robot.rotate(400);
+    	pause(2000);
+    	sensor2Bandera =true;
+    	sensor1Bandera =true;
+	}
+	
+	public void cruzeDerecho(TimingNavigator robot){
+		
+	}
+	
 	public void motorDerecho(int error, TimingNavigator robot){
-		if(error>3){
-			
-			
+		if(error>2){
+			Motor.A.setPower(4);
+			Motor.C.setPower(4);
+			robot.rotate(15);
+			robot.travel(2);
+		}else if(error>-2){
+			Motor.A.setPower(4);
+			Motor.C.setPower(4);
+			robot.rotate(2);
+			robot.travel(3);
+		}else{
 			robot.stop();
 			Motor.A.setPower(5);
 			Motor.C.setPower(5);
-			robot.rotate(15);
-		}else if(error>1){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.rotate(5);
-			robot.travel(2);
-		}else if(error>=-1){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.travel(3);
-		}else if(error>=-2){
-			Motor.A.setPower(5);
-			Motor.C.setPower(5);
-			robot.rotate(-10);
-			robot.travel(3);
-		}else{
-			Motor.A.setPower(4);
-			Motor.C.setPower(4);
 			robot.rotate(-15);
-			robot.travel(2);
 		}
 		sensor1Bandera = true;
 	}
@@ -185,7 +162,7 @@ public class Impresion {
 	
 	public static void main(String[] args) throws InterruptedException {
 	      
-	 new Impresion();     
+	 new LineFollower();     
 	} //main()
 	  
 }

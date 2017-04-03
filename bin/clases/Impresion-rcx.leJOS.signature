@@ -151,9 +151,9 @@ Signature 109: <init>(J)V
 Signature 110: nextInt()I
 Master record : 16 bytes.
 Class records : 40 (400 bytes).
-Field records : 48 (48 bytes).
+Field records : 50 (50 bytes).
 Method records: 138 (1656 bytes).
-Code          : 107 (3277 bytes).
+Code          : 107 (3564 bytes).
 Class table offset   : 16
 Constant table offset: 690
 Method tables offset : 958
