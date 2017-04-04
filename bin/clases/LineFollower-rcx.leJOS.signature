@@ -95,67 +95,68 @@ Signature 53: <init>([CII)V
 Signature 54: pause(I)V
 Signature 55: motorIzquierdo(ILjosx/robotics/TimingNavigator;)V
 Signature 56: cruzeIzquierdo(Ljosx/robotics/TimingNavigator;)V
-Signature 57: motorDerecho(ILjosx/robotics/TimingNavigator;)V
-Signature 58: arraycopy([CI[CII)V
-Signature 59: getRuntime()Ljava/lang/Runtime;
-Signature 60: readValue()I
-Signature 61: <init>(I)V
-Signature 62: addSensorListener(Ljosx/platform/rcx/SensorListener;)V
-Signature 63: activate()V
-Signature 64: setTypeAndMode(II)V
-Signature 65: callListeners()V
-Signature 66: isPressed()Z
-Signature 67: waitForPressAndRelease()V
-Signature 68: addButtonListener(Ljosx/platform/rcx/ButtonListener;)V
-Signature 69: readButtons()I
-Signature 70: <init>(Lclases/LineFollower;)V
-Signature 71: buttonReleased(Ljosx/platform/rcx/Button;)V
-Signature 72: buttonPressed(Ljosx/platform/rcx/Button;)V
-Signature 73: access$0(Lclases/LineFollower$1;)Lclases/LineFollower;
-Signature 74: <init>(C)V
-Signature 75: setPower(I)V
-Signature 76: forward()V
-Signature 77: backward()V
-Signature 78: stop()V
-Signature 79: controlMotor(CII)V
-Signature 80: <init>(Ljosx/platform/rcx/Motor;Ljosx/platform/rcx/Motor;FF)V
-Signature 81: rotate(F)V
-Signature 82: gotoAngle(F)V
-Signature 83: travel(I)V
-Signature 84: stateChanged(Ljosx/platform/rcx/Sensor;II)V
-Signature 85: get()Ljosx/platform/rcx/ListenerThread;
-Signature 86: addToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 87: addButtonToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 88: addSensorToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 89: <init>(Z)V
-Signature 90: poll(II)I
-Signature 91: readShort(I)S
-Signature 92: showNumber(I)V
-Signature 93: setNumber(III)V
-Signature 94: refresh()V
-Signature 95: <init>(Lclases/LineFollower$1;)V
-Signature 96: ArcTan(D)D
-Signature 97: floor(D)D
-Signature 98: round(F)I
-Signature 99: exp(D)D
-Signature 100: log(D)D
-Signature 101: abs(D)D
-Signature 102: abs(I)I
-Signature 103: sin(D)D
-Signature 104: cos(D)D
-Signature 105: sqrt(D)D
-Signature 106: atan(D)D
-Signature 107: atan2(DD)D
-Signature 108: toDegrees(D)D
-Signature 109: toRadians(D)D
-Signature 110: <init>(J)V
-Signature 111: nextInt()I
+Signature 57: cruzeDerecho(Ljosx/robotics/TimingNavigator;)V
+Signature 58: motorDerecho(ILjosx/robotics/TimingNavigator;)V
+Signature 59: arraycopy([CI[CII)V
+Signature 60: getRuntime()Ljava/lang/Runtime;
+Signature 61: readValue()I
+Signature 62: <init>(I)V
+Signature 63: addSensorListener(Ljosx/platform/rcx/SensorListener;)V
+Signature 64: activate()V
+Signature 65: setTypeAndMode(II)V
+Signature 66: callListeners()V
+Signature 67: isPressed()Z
+Signature 68: waitForPressAndRelease()V
+Signature 69: addButtonListener(Ljosx/platform/rcx/ButtonListener;)V
+Signature 70: readButtons()I
+Signature 71: <init>(Lclases/LineFollower;)V
+Signature 72: buttonReleased(Ljosx/platform/rcx/Button;)V
+Signature 73: buttonPressed(Ljosx/platform/rcx/Button;)V
+Signature 74: access$0(Lclases/LineFollower$1;)Lclases/LineFollower;
+Signature 75: <init>(C)V
+Signature 76: setPower(I)V
+Signature 77: forward()V
+Signature 78: backward()V
+Signature 79: stop()V
+Signature 80: controlMotor(CII)V
+Signature 81: <init>(Ljosx/platform/rcx/Motor;Ljosx/platform/rcx/Motor;FF)V
+Signature 82: rotate(F)V
+Signature 83: gotoAngle(F)V
+Signature 84: travel(I)V
+Signature 85: stateChanged(Ljosx/platform/rcx/Sensor;II)V
+Signature 86: get()Ljosx/platform/rcx/ListenerThread;
+Signature 87: addToMask(ILjosx/platform/rcx/ListenerCaller;)V
+Signature 88: addButtonToMask(ILjosx/platform/rcx/ListenerCaller;)V
+Signature 89: addSensorToMask(ILjosx/platform/rcx/ListenerCaller;)V
+Signature 90: <init>(Z)V
+Signature 91: poll(II)I
+Signature 92: readShort(I)S
+Signature 93: showNumber(I)V
+Signature 94: setNumber(III)V
+Signature 95: refresh()V
+Signature 96: <init>(Lclases/LineFollower$1;)V
+Signature 97: ArcTan(D)D
+Signature 98: floor(D)D
+Signature 99: round(F)I
+Signature 100: exp(D)D
+Signature 101: log(D)D
+Signature 102: abs(D)D
+Signature 103: abs(I)I
+Signature 104: sin(D)D
+Signature 105: cos(D)D
+Signature 106: sqrt(D)D
+Signature 107: atan(D)D
+Signature 108: atan2(DD)D
+Signature 109: toDegrees(D)D
+Signature 110: toRadians(D)D
+Signature 111: <init>(J)V
+Signature 112: nextInt()I
 Master record : 16 bytes.
 Class records : 40 (400 bytes).
 Field records : 50 (50 bytes).
-Method records: 139 (1668 bytes).
-Code          : 108 (3322 bytes).
+Method records: 140 (1680 bytes).
+Code          : 109 (3357 bytes).
 Class table offset   : 16
 Constant table offset: 690
-Method tables offset : 950
-Excep tables offset  : 2618
+Method tables offset : 962
+Excep tables offset  : 2642

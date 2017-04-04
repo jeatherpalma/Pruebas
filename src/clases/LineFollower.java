@@ -45,13 +45,14 @@ public class LineFollower {
 					
 					@Override
 					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
-						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 1.6f, 0.54f);
+						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 5.0f, 2.2f);
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
-				        sensor2Bandera = false;
 				        if(error<0 && (sensor2.readValue()-gray)<0){
+				        	sensor2Bandera = false;
+					        sensor1Bandera = false;
 				        	cruzeIzquierdo(robot);
-				        }
+				        }else
 				        if(sensor1Bandera){
 				        	motorIzquierdo(error, robot);	
 				        }
@@ -70,7 +71,12 @@ public class LineFollower {
 						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 1.6f, 0.54f);
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
-				        sensor1Bandera = false;
+				       /*if(error<0 && (sensor1.readValue()-gray)<0){
+				    	   
+				        	sensor2Bandera = false;
+					        sensor1Bandera = false;
+				        	cruzeDerecho(robot);
+				        }else*/
 				        if(sensor2Bandera){
 							motorDerecho(error, robot);
 
@@ -123,19 +129,24 @@ public class LineFollower {
 	}
 	
 	public void cruzeIzquierdo(TimingNavigator robot){
-		sensor1Bandera = false;
+		
 		Motor.A.setPower(7);
-    	Motor.B.setPower(7);
-    	robot.travel(5);
+    	Motor.C.setPower(7);
+    	robot.travel(6);
     	robot.stop();
-    	robot.rotate(400);
-    	pause(2000);
+    	robot.rotate(210);
     	sensor2Bandera =true;
     	sensor1Bandera =true;
 	}
 	
 	public void cruzeDerecho(TimingNavigator robot){
-		
+		Motor.A.setPower(7);
+    	Motor.C.setPower(7);
+    	robot.travel(8);
+    	robot.stop();
+    	robot.rotate(-300);
+    	sensor2Bandera =true;
+    	sensor1Bandera =true;
 	}
 	
 	public void motorDerecho(int error, TimingNavigator robot){
