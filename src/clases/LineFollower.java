@@ -12,7 +12,7 @@ public class LineFollower {
 	Sensor sensor1 = Sensor.S1;
 	Sensor sensor2 = Sensor.S3;
 	boolean sensor1Bandera = true, sensor2Bandera = true;
-	String movimientos [] ={"Izquierda","Derecha","Abajo"};
+	String movimientos [] ={"Izquierda","Derecha","Abajo","Arriba"};
 	
 	public LineFollower() throws InterruptedException{
 	
@@ -49,15 +49,15 @@ public class LineFollower {
 					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
 						try{
 							
-						
+					    sensor2Bandera = false;
 						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 5.0f, 2.2f);
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
 				        if(error<0 && (sensor2.readValue()-gray)<0){
 				        	
-				        	sensor2Bandera = false;
+				        	
 					        sensor1Bandera = false;
-				        	/*String orden = movimientos[contadorMovimientos];
+				        	String orden = movimientos[contadorMovimientos];
 				        	contadorMovimientos++;
 				        	if(orden.equals("Izquierda")){
 				        		izquierda(robot);
@@ -65,8 +65,11 @@ public class LineFollower {
 				        		derecha(robot);
 				        	}else if(orden.equals("Abajo")){
 				        		abajo(robot);
-				        	}*/
-					        arriba(robot);
+				        	}else if(orden.equals("Arriba")){
+				        		arriba(robot);
+				        		contadorMovimientos =0;
+				        	}
+					       
 				        	
 				        }else
 				        if(sensor1Bandera){
@@ -87,6 +90,7 @@ public class LineFollower {
 					@Override
 					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
 						try{
+					    sensor1Bandera = false;
 						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 1.6f, 0.54f);
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
@@ -127,97 +131,121 @@ public class LineFollower {
 	
 	
 	public void motorIzquierdo(int error, TimingNavigator robot){
-		if(error>2){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.rotate(-15);
-			pause(15);
-			robot.travel(2);
-		}else if(error>-2){
-			Motor.A.setPower(3);
-			Motor.C.setPower(3);
-			robot.rotate(-2);
-			pause(15);
-			robot.travel(3);
-		}else{
-			robot.stop();
-			Motor.A.setPower(5);
-			Motor.C.setPower(5);
-			robot.rotate(15);
+		try {
+			if(error>2){
+				Motor.A.setPower(3);
+				Motor.C.setPower(3);
+				robot.rotate(-15);
+				pause(15);
+				robot.travel(2);
+			}else if(error>-2){
+				Motor.A.setPower(3);
+				Motor.C.setPower(3);
+				robot.rotate(-2);
+				pause(15);
+				robot.travel(3);
+			}else{
+				robot.stop();
+				Motor.A.setPower(5);
+				Motor.C.setPower(5);
+				robot.rotate(15);
+			}
+			sensor2Bandera = true;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		sensor2Bandera = true;
 	}
 	
 	public void motorDerecho(int error, TimingNavigator robot){
-		if(error>2){
-			Motor.A.setPower(4);
-			Motor.C.setPower(4);
-			robot.rotate(15);
-			pause(15);
-			robot.travel(2);
-		}else if(error>-2){
-			Motor.A.setPower(4);
-			Motor.C.setPower(4);
-			robot.rotate(2);
-			pause(15);
-			robot.travel(3);
-		}else{
-			robot.stop();
-			Motor.A.setPower(5);
-			Motor.C.setPower(5);
-			robot.rotate(-15);
+		try {
+			if(error>2){
+				Motor.A.setPower(4);
+				Motor.C.setPower(4);
+				robot.rotate(15);
+				pause(15);
+				robot.travel(2);
+			}else if(error>-2){
+				Motor.A.setPower(4);
+				Motor.C.setPower(4);
+				robot.rotate(2);
+				pause(15);
+				robot.travel(3);
+			}else{
+				robot.stop();
+				Motor.A.setPower(5);
+				Motor.C.setPower(5);
+				robot.rotate(-15);
+			}
+			sensor1Bandera = true;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		sensor1Bandera = true;
 	}
 	
 	
 	/****Zona de movmientos********/
 	//Derecha
 	public void derecha(TimingNavigator robot){
-		sensor1Bandera = false;
-		Motor.A.setPower(7);
-    	Motor.C.setPower(7);
-    	robot.travel(7);
-    	robot.stop();
-    	robot.rotate(-160);
-    	pause(15);
-    	sensor2Bandera =true;
-    	sensor1Bandera =true;
+		try {
+			sensor1Bandera = false;
+			Motor.A.setPower(7);
+	    	Motor.C.setPower(7);
+	    	robot.travel(7);
+	    	robot.stop();
+	    	robot.rotate(-165);
+	    	pause(15);
+	    	sensor2Bandera =true;
+	    	sensor1Bandera =true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     	
 	}
 	//Izquierda
 	public void izquierda(TimingNavigator robot){
-		sensor1Bandera = false;
-		Motor.A.setPower(7);
-    	Motor.B.setPower(7);
-    	robot.travel(7);
-    	robot.stop();
-    	robot.rotate(160);
-    	pause(15);
-    	sensor2Bandera =true;
-    	sensor1Bandera =true;
+		try {
+			sensor1Bandera = false;
+			Motor.A.setPower(7);
+	    	Motor.B.setPower(7);
+	    	robot.travel(7);
+	    	robot.stop();
+	    	robot.rotate(165);
+	    	pause(15);
+	    	sensor2Bandera =true;
+	    	sensor1Bandera =true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	//Abajo
 	public void abajo(TimingNavigator robot){
-		sensor1Bandera = false;
-		Motor.A.setPower(6);
-		Motor.B.setPower(6);
-		robot.travel(-3);
-		robot.stop();
-		robot.rotate(270);
-		pause(15);
-		sensor2Bandera =true;
-    	sensor1Bandera =true;
+		try {
+			sensor1Bandera = false;
+			Motor.A.setPower(6);
+			Motor.B.setPower(6);
+			robot.travel(-3);
+			robot.stop();
+			robot.rotate(300);
+			pause(15);
+			sensor2Bandera =true;
+	    	sensor1Bandera =true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	//Arriba
 	public void arriba(TimingNavigator robot){
-		sensor1Bandera = false;
-		Motor.A.setPower(6);
-		Motor.B.setPower(6);
-		robot.travel(4);
-		pause(15);
-		sensor1Bandera = true;
-		sensor2Bandera = true;
+		try {
+			sensor1Bandera = false;
+			Motor.A.setPower(6);
+			Motor.B.setPower(6);
+			robot.travel(7);
+			pause(15);
+			sensor1Bandera = true;
+			sensor2Bandera = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	/*Método pause del robot*/

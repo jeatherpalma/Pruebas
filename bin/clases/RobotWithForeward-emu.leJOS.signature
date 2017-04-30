@@ -15,25 +15,11 @@ Class 13: java/lang/InterruptedException
 Class 14: java/lang/IllegalStateException
 Class 15: java/lang/IllegalMonitorStateException
 Class 16: java/lang/ThreadDeath
-Class 17: clases/Sensillo
+Class 17: clases/RobotWithForeward
 Class 18: java/lang/System
 Class 19: java/lang/RuntimeException
 Class 20: java/lang/Exception
-Class 21: josx/platform/rcx/Sensor
-Class 22: josx/robotics/TimingNavigator
-Class 23: josx/platform/rcx/Motor
-Class 24: josx/platform/rcx/Button
-Class 25: java/lang/Runtime
-Class 26: josx/platform/rcx/SensorListener
-Class 27: josx/platform/rcx/ListenerThread
-Class 28: josx/platform/rcx/ROM
-Class 29: josx/platform/rcx/ListenerCaller
-Class 30: java/lang/Math
-Class 31: josx/robotics/Navigator
-Class 32: josx/platform/rcx/ButtonListener
-Class 33: josx/platform/rcx/Poll
-Class 34: josx/platform/rcx/Memory
-Class 35: java/util/Random
+Class 21: java/lang/Runtime
 Signature 0: main([Ljava/lang/String;)V
 Signature 1: run()V
 Signature 2: <init>()V
@@ -84,61 +70,18 @@ Signature 46: read()I
 Signature 47: isSending()Z
 Signature 48: isSendError()Z
 Signature 49: getRegionAddress()I
-Signature 50: toString()Ljava/lang/String;
-Signature 51: isAlive()Z
+Signature 50: equals(Ljava/lang/Object;)Z
+Signature 51: toString()Ljava/lang/String;
 Signature 52: <init>(Ljava/lang/String;)V
 Signature 53: <init>([CII)V
 Signature 54: arraycopy([CI[CII)V
 Signature 55: getRuntime()Ljava/lang/Runtime;
-Signature 56: <init>(I)V
-Signature 57: activate()V
-Signature 58: setTypeAndMode(II)V
-Signature 59: callListeners()V
-Signature 60: <init>(Ljosx/platform/rcx/Motor;Ljosx/platform/rcx/Motor;FF)V
-Signature 61: rotate(F)V
-Signature 62: gotoAngle(F)V
-Signature 63: travel(I)V
-Signature 64: forward()V
-Signature 65: backward()V
-Signature 66: stop()V
-Signature 67: <init>(C)V
-Signature 68: setPower(I)V
-Signature 69: controlMotor(CII)V
-Signature 70: isPressed()Z
-Signature 71: waitForPressAndRelease()V
-Signature 72: readButtons()I
-Signature 73: stateChanged(Ljosx/platform/rcx/Sensor;II)V
-Signature 74: get()Ljosx/platform/rcx/ListenerThread;
-Signature 75: addToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 76: addButtonToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 77: addSensorToMask(ILjosx/platform/rcx/ListenerCaller;)V
-Signature 78: ArcTan(D)D
-Signature 79: floor(D)D
-Signature 80: round(F)I
-Signature 81: exp(D)D
-Signature 82: log(D)D
-Signature 83: abs(D)D
-Signature 84: abs(I)I
-Signature 85: sin(D)D
-Signature 86: cos(D)D
-Signature 87: sqrt(D)D
-Signature 88: atan(D)D
-Signature 89: atan2(DD)D
-Signature 90: toDegrees(D)D
-Signature 91: toRadians(D)D
-Signature 92: buttonPressed(Ljosx/platform/rcx/Button;)V
-Signature 93: buttonReleased(Ljosx/platform/rcx/Button;)V
-Signature 94: <init>(Z)V
-Signature 95: poll(II)I
-Signature 96: readShort(I)S
-Signature 97: <init>(J)V
-Signature 98: nextInt()I
 Master record : 16 bytes.
-Class records : 36 (360 bytes).
-Field records : 39 (39 bytes).
-Method records: 119 (1428 bytes).
-Code          : 89 (2504 bytes).
+Class records : 22 (220 bytes).
+Field records : 14 (14 bytes).
+Method records: 36 (432 bytes).
+Code          : 31 (760 bytes).
 Class table offset   : 16
-Constant table offset: 650
-Method tables offset : 898
-Excep tables offset  : 2326
+Constant table offset: 260
+Method tables offset : 324
+Excep tables offset  : 756
