@@ -1,10 +1,14 @@
 package clases;
 
-
-import josx.platform.rcx.*;
+import josx.platform.rcx.Button;
+import josx.platform.rcx.ButtonListener;
+import josx.platform.rcx.LCD;
+import josx.platform.rcx.Motor;
+import josx.platform.rcx.Sensor;
+import josx.platform.rcx.SensorListener;
 import josx.robotics.TimingNavigator;
-public class LineFollower {
-	
+
+public class WithBox {
 	int white=0;
 	int black =0;
 	int gray =0;
@@ -12,9 +16,9 @@ public class LineFollower {
 	Sensor sensor1 = Sensor.S1;
 	Sensor sensor2 = Sensor.S3;
 	boolean sensor1Bandera = true, sensor2Bandera = true;
-	String movimientos [] ={"Izquierda","Derecha","Abajo","Arriba"};
+	String movimientos [] ={"Derecha","Izuqierda","Arriba"};
 	
-	public LineFollower() throws InterruptedException{
+	public WithBox() throws InterruptedException{
 	
 	sensor1.setTypeAndMode(3, 0X80);
 	sensor2.setTypeAndMode(3, 0X80);
@@ -40,24 +44,36 @@ public class LineFollower {
 				gray = (white+black)/2;
 				LCD.showNumber(gray);
 			}else if(contador==3){
+					start();				
+			}//clase addSensorListener
+			
+		}
+		
+	});
+	  
+	  
+	  Button.RUN.waitForPressAndRelease();
+	  
+	}//Fin del método constructor
+	
+	public void start(){
+		
+		/*Evento del sensor dos*/
+	    if(sensor2Bandera){
+	    	sensor1Bandera = false;
+	    	sensor2.addSensorListener(new SensorListener() {
 				
-				
-				/*Evento del sensor uno*/
-			    sensor1.addSensorListener(new SensorListener() {
+				@Override
+				public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
 					
-					@Override
-					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
-						try{
-							
-					    sensor2Bandera = false;
-						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 5.0f, 2.2f);
+					try{
+					    
+						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A,  5.475f, 4.03f);
 						int error = aNewValue - gray;
 				        LCD.showNumber(error);
-				        if(error<0 && (sensor2.readValue()-gray)<0){
-				        	
-				        	
-					        sensor1Bandera = false;
-				        	String orden = movimientos[contadorMovimientos];
+				        if(error<0){
+					        
+					        String orden = movimientos[contadorMovimientos];
 				        	contadorMovimientos++;
 				        	if(orden.equals("Izquierda")){
 				        		izquierda(robot);
@@ -69,90 +85,66 @@ public class LineFollower {
 				        		arriba(robot);
 				        		contadorMovimientos =0;
 				        	}
-					       
-				        	
-				        }else
-				        if(sensor1Bandera){
-				        	motorIzquierdo(error, robot);	
-				        }
-						
-						
-					}catch (Exception e) {
-						
-					}
-					
-				}});
-			    
-			    
-			    /*Evento del sensor dos*/
-			    sensor2.addSensorListener(new SensorListener() {
-					
-					@Override
-					public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
-						try{
-					    sensor1Bandera = false;
-						TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A, 1.6f, 0.54f);
-						int error = aNewValue - gray;
-				        LCD.showNumber(error);
-				       /*if(error<0 && (sensor1.readValue()-gray)<0){
-				    	   
-				        	sensor2Bandera = false;
-					        sensor1Bandera = false;
-				        	cruzeDerecho(robot);
-				        }else*/
-				        if(sensor2Bandera){
-							motorDerecho(error, robot);
 
 				        }
-						
+				        sensor1Bandera = true;
 					}catch (Exception e) {
-						// TODO: handle exception
+						start();				
 					}//
-				}//Fin clase stateChange
-				});
-			    
-			    
 				
+					
+			}//Fin clase stateChange
+			});
+	    }
+		
+	    if (sensor1Bandera) {
+	    	/*Evento del sensor uno*/
+	    	sensor2Bandera = false;
+		    sensor1.addSensorListener(new SensorListener() {
 				
-			}//clase addSensorListener
-			
+				@Override
+				public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
+					try{
+						
+					TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A,  5.475f, 4.03f);
+					int error = aNewValue - gray;
+			        LCD.showNumber(error);
+			        motorIzquierdo(error, robot);	
+			        
+				}catch (Exception e) {
+					start();
+				}
 				
-			
+			}});
 		}
 		
-	});
-	  
-	  
-	  Button.RUN.waitForPressAndRelease();
-	  
-	}//Fin del método constructor
-	
-	
+	    
+	}
 	
 	
 	public void motorIzquierdo(int error, TimingNavigator robot){
 		try {
 			if(error>2){
-				Motor.A.setPower(3);
-				Motor.C.setPower(3);
-				robot.rotate(-15);
-				pause(15);
+				Motor.A.setPower(2);
+				Motor.C.setPower(2);
+				robot.rotate(-9);
 				robot.travel(2);
 			}else if(error>-2){
 				Motor.A.setPower(3);
 				Motor.C.setPower(3);
 				robot.rotate(-2);
-				pause(15);
 				robot.travel(3);
 			}else{
 				robot.stop();
 				Motor.A.setPower(5);
 				Motor.C.setPower(5);
-				robot.rotate(15);
+				robot.rotate(9);
+				
 			}
 			sensor2Bandera = true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			sensor2Bandera = true;
+			start();
 		}
 	}
 	
@@ -161,14 +153,12 @@ public class LineFollower {
 			if(error>2){
 				Motor.A.setPower(3);
 				Motor.C.setPower(3);
-				robot.rotate(15);
-				pause(15);
+				robot.rotate(9);
 				robot.travel(2);
 			}else if(error>-2){
-				Motor.A.setPower(4);
-				Motor.C.setPower(4);
+				Motor.A.setPower(3);
+				Motor.C.setPower(3);
 				robot.rotate(2);
-				pause(15);
 				robot.travel(3);
 			}else{
 				robot.stop();
@@ -176,9 +166,9 @@ public class LineFollower {
 				Motor.C.setPower(5);
 				robot.rotate(-15);
 			}
-			sensor1Bandera = true;
+			sensor2Bandera = true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			start();
 		}
 	}
 	
@@ -187,64 +177,66 @@ public class LineFollower {
 	//Derecha
 	public void derecha(TimingNavigator robot){
 		try {
-			sensor1Bandera = false;
 			Motor.A.setPower(7);
 	    	Motor.C.setPower(7);
 	    	robot.travel(7);
 	    	robot.stop();
-	    	robot.rotate(-165);
-	    	pause(15);
-	    	sensor2Bandera =true;
+	    	robot.rotate(-95);
+	    	pause(25);
 	    	sensor1Bandera =true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			sensor1Bandera =true;
+			start();
 		}
     	
 	}
 	//Izquierda
 	public void izquierda(TimingNavigator robot){
 		try {
-			sensor1Bandera = false;
+
 			Motor.A.setPower(7);
-	    	Motor.B.setPower(7);
+	    	Motor.C.setPower(7);
 	    	robot.travel(7);
 	    	robot.stop();
-	    	robot.rotate(165);
-	    	pause(15);
-	    	sensor2Bandera =true;
+	    	robot.rotate(95);
+	    	pause(25);
 	    	sensor1Bandera =true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			sensor1Bandera =true;
+			start();
 		}
 	}
 	//Abajo
 	public void abajo(TimingNavigator robot){
 		try {
-			sensor1Bandera = false;
-			Motor.A.setPower(6);
-			Motor.B.setPower(6);
-			robot.travel(-3);
+	
 			robot.stop();
-			robot.rotate(300);
+			Motor.A.setPower(7);
+			Motor.C.setPower(7);
+			robot.travel(-5);
+			robot.stop();
 			pause(15);
-			sensor2Bandera =true;
+			robot.rotate(-185);
+			pause(25);
 	    	sensor1Bandera =true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			sensor1Bandera =true;
+			start();
 		}
 	}
 	//Arriba
 	public void arriba(TimingNavigator robot){
 		try {
-			sensor1Bandera = false;
+		
 			Motor.A.setPower(6);
-			Motor.B.setPower(6);
-			robot.travel(7);
+			Motor.C.setPower(6);
+			robot.travel(9);
 			pause(15);
 			sensor1Bandera = true;
-			sensor2Bandera = true;
+			pause(25);
 		} catch (Exception e) {
-			// TODO: handle exception
+			sensor1Bandera =true;
+			start();
 		}
 	}
 	
@@ -253,14 +245,20 @@ public class LineFollower {
 		try{
 			Thread.sleep(delay);
 		}catch (InterruptedException e) {
-			
+			start();
 		}
 	}//Fin del método pause 
 	
 	//Método main
 	public static void main(String[] args) throws InterruptedException {
-	      
-	 new LineFollower();     
+		 WithBox wi = null; 
+		try{
+			 wi = new WithBox();
+		}catch (Exception e) {
+				// TODO: handle exception
+				wi.start(); 
+	   }
 	} //main()
-	  
 }
+
+
