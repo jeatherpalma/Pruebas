@@ -8,7 +8,7 @@ import josx.platform.rcx.Sensor;
 import josx.platform.rcx.SensorListener;
 import josx.robotics.TimingNavigator;
 
-public class LineFolwerWithWhiles {
+public class SolveSokoban2v {
 	int white=0;
 	int black =0;
 	int gray =0;
@@ -17,8 +17,7 @@ public class LineFolwerWithWhiles {
 	Sensor sensor2 = Sensor.S3;
 	char movimientos [] ={'D','I','I','I'};
 	TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A,  5.475f, 4.03f);
-	
-	public LineFolwerWithWhiles() throws InterruptedException{
+	public SolveSokoban2v() throws InterruptedException{
 	
 	sensor1.setTypeAndMode(3, 0X80);
 	sensor2.setTypeAndMode(3, 0X80);
@@ -50,59 +49,66 @@ public class LineFolwerWithWhiles {
 		}
 		
 	});
-	  
+	 
 	  
 	  Button.RUN.waitForPressAndRelease();
 	  
 	}//Fin del método constructor
+	
 	public void start(){
-		
-
-		    sensor1.addSensorListener(new SensorListener() {
+		 sensor1.addSensorListener(new SensorListener() {
 				
 				@Override
 				public void stateChanged(Sensor aSource, int aOldValue, int aNewValue) {
 					try{
 						
-					
 					int error = aNewValue - gray;
 					if(sensor2.readValue()-gray<0){
 						getMovimientos();
 					}else{
 						 if(error>2){
-							    Motor.A.setPower(3);
-					     		Motor.C.setPower(2);
-					     		Motor.A.forward();
-					     		Motor.C.backward();
+							detectWhite();		
 					     		
-					     		
-					         }else
-					         if(error>-2){
-					        	Motor.A.setPower(6);
-					     		Motor.C.setPower(6);
-					     		robot.forward();
-					        	
-					         }else{
-					        	    Motor.C.setPower(3);
-						     		Motor.A.setPower(2);
-						     		Motor.C.forward();
-						     		Motor.A.backward();
-						     		
-						     	 
-					         }
+					     }else if(error>-2){
+					       detectaGray(); 	
+					    	
+					     }else{
+					    	
+						   detectBlack();
+					     }
 					}
 			        
-			     Thread.sleep(2);    
+			      Thread.sleep(2);    
 				}catch (Exception e) {
 					
 				}
 				
 			}});
-		    
-		    
-    
-	}//Fin metodo start
+	}
 	
+	/***Zona del seguidor de Linea**/
+	public void detectWhite( ){
+		Motor.A.setPower(5);
+ 		Motor.C.setPower(5);
+		robot.rotate(-5);
+		robot.forward();
+		
+	}
+	
+	public void detectBlack(){
+		Motor.A.setPower(5);
+ 		Motor.C.setPower(5);
+		robot.rotate(5);
+		robot.forward();
+		
+	}
+	
+	public void detectaGray(){
+		Motor.A.setPower(7);
+ 		Motor.C.setPower(7);
+ 		Motor.A.forward();
+ 		Motor.B.forward();
+	}
 	/****Zona de movmientos********/
 	//Derecha
 	public void derecha(){
@@ -116,7 +122,7 @@ public class LineFolwerWithWhiles {
 	    	
 		} catch (Exception e) {
 			
-			start();
+		
 		}
     	
 	}
@@ -132,7 +138,7 @@ public class LineFolwerWithWhiles {
 	    	Thread.sleep(20);
 		} catch (Exception e) {
 		
-			start();
+			
 		}
 	}
 	//Abajo
@@ -148,7 +154,7 @@ public class LineFolwerWithWhiles {
 			Thread.sleep(20);
 		} catch (Exception e) {
 			
-			start();
+			
 		}
 	}
 	//Arriba
@@ -161,7 +167,7 @@ public class LineFolwerWithWhiles {
 			Thread.sleep(20);
 		} catch (Exception e) {
 			
-			start();
+		
 		}
 	} 
 	
@@ -184,7 +190,7 @@ public class LineFolwerWithWhiles {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		new LineFolwerWithWhiles();
+		new SolveSokoban2v();
 	}
 
 }
