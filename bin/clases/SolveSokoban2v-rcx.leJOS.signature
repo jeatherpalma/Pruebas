@@ -155,8 +155,8 @@ Master record : 16 bytes.
 Class records : 39 (390 bytes).
 Field records : 50 (50 bytes).
 Method records: 141 (1692 bytes).
-Code          : 110 (3358 bytes).
+Code          : 110 (3466 bytes).
 Class table offset   : 16
 Constant table offset: 680
-Method tables offset : 948
-Excep tables offset  : 2640
+Method tables offset : 944
+Excep tables offset  : 2636

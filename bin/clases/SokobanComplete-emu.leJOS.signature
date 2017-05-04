@@ -15,7 +15,7 @@ Class 13: java/lang/InterruptedException
 Class 14: java/lang/IllegalStateException
 Class 15: java/lang/IllegalMonitorStateException
 Class 16: java/lang/ThreadDeath
-Class 17: clases/SolveSokoban2v
+Class 17: clases/SokobanComplete
 Class 18: java/lang/System
 Class 19: java/lang/RuntimeException
 Class 20: java/lang/Exception
@@ -23,8 +23,8 @@ Class 21: josx/platform/rcx/Sensor
 Class 22: josx/robotics/TimingNavigator
 Class 23: josx/platform/rcx/Motor
 Class 24: josx/platform/rcx/Button
-Class 25: clases/SolveSokoban2v$1
-Class 26: clases/SolveSokoban2v$2
+Class 25: clases/SokobanComplete$1
+Class 26: clases/SokobanComplete$2
 Class 27: java/lang/Runtime
 Class 28: josx/platform/rcx/SensorListener
 Class 29: josx/platform/rcx/ListenerThread
@@ -121,7 +121,7 @@ Signature 80: isPressed()Z
 Signature 81: waitForPressAndRelease()V
 Signature 82: addButtonListener(Ljosx/platform/rcx/ButtonListener;)V
 Signature 83: readButtons()I
-Signature 84: <init>(Lclases/SolveSokoban2v;)V
+Signature 84: <init>(Lclases/SokobanComplete;)V
 Signature 85: buttonReleased(Ljosx/platform/rcx/Button;)V
 Signature 86: buttonPressed(Ljosx/platform/rcx/Button;)V
 Signature 87: stateChanged(Ljosx/platform/rcx/Sensor;II)V

@@ -8,7 +8,7 @@ import josx.platform.rcx.Sensor;
 import josx.platform.rcx.SensorListener;
 import josx.robotics.TimingNavigator;
 
-public class SolveSokoban2v{
+public class SokobanComplete {
 	int white=0;
 	int black =0;
 	int gray =0;
@@ -17,7 +17,7 @@ public class SolveSokoban2v{
 	Sensor sensor2 = Sensor.S3;
 	char movimientos [] ={'A','I','I','I'};
 	TimingNavigator robot = new TimingNavigator(Motor.C, Motor.A,  5.475f, 4.03f);
-	public SolveSokoban2v() throws InterruptedException{
+	public SokobanComplete() throws InterruptedException{
 	
 	sensor1.setTypeAndMode(3, 0X80);
 	sensor2.setTypeAndMode(3, 0X80);
@@ -207,8 +207,6 @@ public class SolveSokoban2v{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		new SolveSokoban2v();
+		new SokobanComplete();
 	}
-
 }
-
